@@ -1,12 +1,16 @@
 import fetch from 'node-fetch'
 import { JSDOM } from 'jsdom'
 
-const downloadHtml = async (url) => (await fetch(url)).text()
+export default class PodcastDownloader {
+  static async downloadHtml (url) {
+    return (await fetch(url)).text()
+  }
 
-const getPageAudioSrc = async (url) => {
-  const { document } = (new JSDOM(await downloadHtml(url))).window
-  console.log(document)
-  return null
+  static async getPageAudioSrc (url) {
+    const sourceElement = new JSDOM(await this.downloadHtml(url))
+      .window
+      .document
+      .querySelector('audio source')
+    return sourceElement && sourceElement.src
+  }
 }
-
-export default getPageAudioSrc
