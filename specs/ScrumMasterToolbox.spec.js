@@ -1,5 +1,5 @@
 import ScrumMasterToolbox from '../ScrumMasterToolbox'
-import PodcastDownloader from '../PodcastDownloader'
+import helpers from '../helpers'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)
@@ -7,7 +7,7 @@ const readFile = util.promisify(fs.readFile)
 describe('ScrumMasterToolbox', () => {
   describe('titles', () => {
     const mockHtmlContent = (path) => {
-      jest.spyOn(PodcastDownloader, 'downloadHtml')
+      jest.spyOn(helpers, 'downloadHtml')
         .mockImplementation(() => readFile(path))
     }
 

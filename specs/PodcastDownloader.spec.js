@@ -1,4 +1,5 @@
 import PodcastDownloader from '../PodcastDownloader.js'
+import helpers from '../helpers'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)
@@ -9,7 +10,7 @@ describe('PodcastDownloader', () => {
 
   describe('getPageAudioSrc', () => {
     const mockHtmlContent = (path) => {
-      jest.spyOn(PodcastDownloader, 'downloadHtml')
+      jest.spyOn(helpers, 'downloadHtml')
         .mockImplementation(() => readFile(path))
     }
 
