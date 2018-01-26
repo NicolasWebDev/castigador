@@ -1,0 +1,27 @@
+{
+  "name": "podcast_downloader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "scripts": {
+    "start": "babel-node index.js",
+    "test": "jest --config jest.config.js",
+    "watch": "yarn test --watch"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jsdom": "^11.6.1",
+    "node-fetch": "^1.7.3"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.1.0",
+    "jest": "^22.1.4"
+  }
+}
