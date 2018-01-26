@@ -1,4 +1,4 @@
-import PodcastDownloader from './PodcastDownloader.js'
+import PodcastDownloader from '../PodcastDownloader.js'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)
@@ -18,12 +18,12 @@ describe('PodcastDownloader', () => {
     })
 
     it('returns null if no audio tags are found', async () => {
-      mockHtmlContent('./example_without_audio.html')
+      mockHtmlContent('./specs/example_without_audio.html')
       expect(await PodcastDownloader.getPageAudioSrc('dummy')).toBeNull()
     })
 
     it('returns the audio tag src if found', async () => {
-      mockHtmlContent('./example_with_audio.html')
+      mockHtmlContent('./specs/example_with_audio.html')
       expect(await PodcastDownloader.getPageAudioSrc('dummy')).toBe(audioSource)
     })
   })
