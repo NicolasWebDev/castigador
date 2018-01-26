@@ -1,16 +1,6 @@
-import fetch from 'node-fetch'
-import { JSDOM } from 'jsdom'
+import PodcastDownloader from './PodcastDownloader.js'
 
-export default class PodcastDownloader {
-  static async downloadHtml (url) {
-    return (await fetch(url)).text()
-  }
-
-  static async getPageAudioSrc (url) {
-    const sourceElement = new JSDOM(await this.downloadHtml(url))
-      .window
-      .document
-      .querySelector('audio source')
-    return sourceElement && sourceElement.src
-  }
-}
+(async function () {
+  await PodcastDownloader
+    .downloadAudioOnPage('http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-how-to-explore-trust-as-a-symptom-of-systemic-trouble/')
+})()
