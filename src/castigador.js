@@ -4,5 +4,5 @@ import 'babel-polyfill'
 import ScrumMasterToolbox from '../lib/ScrumMasterToolbox'
 
 (async () => {
-  await ScrumMasterToolbox.promptEpisodes()
+  await ScrumMasterToolbox.downloadEpisodes()
 })()

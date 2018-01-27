@@ -17,20 +17,25 @@ export default class ScrumMasterToolbox {
     return this.delegateToEpisodes('url')
   }
 
+  static async downloadEpisodes () {
+    const episodes = await this.promptEpisodes()
+    for (let episode of episodes) {
+      await episode.download()
+    }
+  }
+
   static async promptEpisodes () {
     const choices = (await this.episodes()).map(episode => ({
       name: episode.title,
       value: episode
     }))
-    const results = await inquirer.prompt([{
+    const result = await inquirer.prompt([{
       type: 'checkbox',
       message: 'Choose the episodes you want to download',
       name: 'episodes',
       choices
     }])
-    for (let episode of results.episodes) {
-      await episode.download()
-    }
+    return result.episodes
   }
 
   static async episodes () {
