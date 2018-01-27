@@ -1,4 +1,4 @@
-import PodcastDownloader from './PodcastDownloader'
+import helpers from './helpers'
 
 export default class Episode {
   constructor (title, url) {
@@ -7,6 +7,6 @@ export default class Episode {
   }
 
   async download () {
-    await PodcastDownloader.downloadAudioOnPage(this.url)
+    await helpers.downloadAudioOnPage(this.url)
   }
 }

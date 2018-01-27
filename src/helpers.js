@@ -1,9 +1,26 @@
 import { JSDOM } from 'jsdom'
+import { parse } from 'url'
+import path from 'path'
 import fetch from 'node-fetch'
 import fs from 'fs'
 import ProgressBar from 'progress'
 
 export default class Helpers {
+  static async getPageAudioSrc (givenUrl) {
+    const audioElement = (await this.remoteDocument(givenUrl))
+      .querySelector('audio')
+    return audioElement && audioElement.src
+  }
+
+  static async downloadAudioOnPage (givenUrl) {
+    const src = await this.getPageAudioSrc(givenUrl)
+    await this.downloadWithProgressBar(src, this.urlFileName(src))
+  }
+
+  static urlFileName (givenUrl) {
+    return path.basename(parse(givenUrl).pathname)
+  }
+
   static async remoteDocument (url) {
     return JSDOM.fragment(await this.downloadHtml(url))
   }
