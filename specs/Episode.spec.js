@@ -1,4 +1,4 @@
-import Episode from '../Episode'
+import Episode from '../src/Episode'
 
 describe('Episode', () => {
   it('nothing', () => {

@@ -10,8 +10,8 @@
   },
   "scripts": {
     "start": "babel-node index.js",
-    "test": "jest --config specs/jest.config.js",
-    "watch": "yarn test --watchAll"
+    "test": "jest --config jest.config.js",
+    "watch": "yarn test --watch"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",

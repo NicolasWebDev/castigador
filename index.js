@@ -1,5 +1,5 @@
-import PodcastDownloader from './PodcastDownloader.js'
-import ScrumMasterToolbox from './ScrumMasterToolbox'
+import PodcastDownloader from './src/PodcastDownloader.js'
+import ScrumMasterToolbox from './src/ScrumMasterToolbox'
 
 const downloadEpisodeFrom = async (url) => {
   await PodcastDownloader

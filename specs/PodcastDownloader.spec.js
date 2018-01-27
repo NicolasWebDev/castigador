@@ -1,5 +1,5 @@
-import PodcastDownloader from '../PodcastDownloader.js'
-import helpers from '../helpers'
+import PodcastDownloader from '../src/PodcastDownloader.js'
+import helpers from '../src/helpers'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)

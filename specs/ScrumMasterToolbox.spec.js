@@ -1,5 +1,5 @@
-import ScrumMasterToolbox from '../ScrumMasterToolbox'
-import helpers from '../helpers'
+import ScrumMasterToolbox from '../src/ScrumMasterToolbox'
+import helpers from '../src/helpers'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)
