@@ -33,21 +33,21 @@ describe('ScrumMasterToolbox', () => {
     })
   })
 
-  describe('pathnames', () => {
+  describe('urls', () => {
     it('returns the pathnames of the first page as a list', async () => {
       mockHtmlContent('./specs/scrum_master_toolbox_home.html')
-      expect(await ScrumMasterToolbox.pathnames()).toEqual([
-        '/2017/12/blog/20-top-agile-blogs-for-scrum-masters-that-you-will-not-easily-find-on-google-searches-2017-edition/',
-        '/2018/01/podcast/kimberley-miller-on-how-to-explore-trust-as-a-symptom-of-systemic-trouble/',
-        '/2018/01/podcast/kimberley-miller-on-how-to-use-self-assessment-to-drive-team-success/',
-        '/2018/01/podcast/kimberley-miller-on-using-retrospectives-to-help-change-organizations/',
-        '/2018/01/podcast/kimberley-miller-on-how-teams-forget-quality-over-deadlines/',
-        '/2018/01/podcast/kimberley-miller-and-the-shopping-list-anti-pattern-in-scrum/',
-        '/2018/01/podcast/bonus-from-project-manager-to-scrum-master-an-interview-with-tanner-wortham/',
-        '/2018/01/podcast/christiaan-verwijs-shares-4-perspectives-that-help-identify-systemic-problems/',
-        '/2018/01/podcast/christiaan-verwijs-on-why-self-organization-is-the-metric-for-the-teams-success/',
-        '/2018/01/podcast/christiaan-verwijs-on-how-a-ceo-became-a-better-leader-with-the-help-of-a-scrum-master/',
-        '/2018/01/podcast/christiaan-verwijs-on-facilitation-as-the-critical-art-for-scrum-masters/'
+      expect(await ScrumMasterToolbox.urls()).toEqual([
+        'http://scrum-master-toolbox.org/2017/12/blog/20-top-agile-blogs-for-scrum-masters-that-you-will-not-easily-find-on-google-searches-2017-edition/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-how-to-explore-trust-as-a-symptom-of-systemic-trouble/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-how-to-use-self-assessment-to-drive-team-success/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-using-retrospectives-to-help-change-organizations/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-how-teams-forget-quality-over-deadlines/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-and-the-shopping-list-anti-pattern-in-scrum/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/bonus-from-project-manager-to-scrum-master-an-interview-with-tanner-wortham/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-shares-4-perspectives-that-help-identify-systemic-problems/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-on-why-self-organization-is-the-metric-for-the-teams-success/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-on-how-a-ceo-became-a-better-leader-with-the-help-of-a-scrum-master/',
+        'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-on-facilitation-as-the-critical-art-for-scrum-masters/'
       ])
     })
   })

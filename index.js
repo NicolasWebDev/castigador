@@ -1,4 +1,5 @@
 import PodcastDownloader from './PodcastDownloader.js'
+import ScrumMasterToolbox from './ScrumMasterToolbox'
 
 const downloadEpisodeFrom = async (url) => {
   await PodcastDownloader
@@ -6,5 +7,6 @@ const downloadEpisodeFrom = async (url) => {
 }
 
 (async () => {
-  downloadEpisodeFrom(process.argv[2])
+  await ScrumMasterToolbox.promptEpisodes()
+  // downloadEpisodeFrom(process.argv[2])
 })()

@@ -1,4 +1,6 @@
+import inquirer from 'inquirer'
 import helpers from './helpers'
+import Episode from './Episode'
 
 const url = 'http://scrum-master-toolbox.org/'
 
@@ -11,20 +13,27 @@ export default class ScrumMasterToolbox {
     return this.delegateToEpisodes('title')
   }
 
-  static async pathnames () {
-    return this.delegateToEpisodes('pathname')
+  static async urls () {
+    return this.delegateToEpisodes('url')
+  }
+
+  static async promptEpisodes () {
+    const choices = (await this.episodes()).map(episode => ({
+      name: episode.title,
+      value: episode
+    }))
+    const results = await inquirer.prompt([{
+      type: 'checkbox',
+      message: 'Choose the episodes you want to download',
+      name: 'episodes',
+      choices
+    }])
+    console.log(results.episodes)
   }
 
   static async episodes () {
     return Array.from(
       (await helpers.remoteDocument(url)).querySelectorAll('.entry-title a')
-    ).map(elt => new Episode(elt.textContent, elt.pathname))
-  }
-}
-
-class Episode {
-  constructor (title, pathname) {
-    this.title = title
-    this.pathname = pathname
+    ).map(elt => new Episode(elt.textContent, elt.href))
   }
 }
