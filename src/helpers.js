@@ -7,9 +7,10 @@ import ProgressBar from 'progress'
 
 export default class Helpers {
   static async getPageAudioSrc (givenUrl) {
-    const audioElement = (await this.remoteDocument(givenUrl))
+    let element = (await this.remoteDocument(givenUrl))
       .querySelector('audio')
-    return audioElement && audioElement.src
+    if (element && !element.src) element = element.querySelector('source')
+    return element && element.src
   }
 
   static async downloadAudioOnPage (givenUrl) {
