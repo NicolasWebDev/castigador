@@ -3,9 +3,7 @@ import fetch from 'node-fetch'
 import fs from 'fs'
 import ProgressBar from 'progress'
 
-const remoteDocument = async (url) => new JSDOM(await downloadHtml(url))
-  .window
-  .document
+const remoteDocument = async (url) => JSDOM.fragment(await downloadHtml(url))
 
 const downloadHtml = async (givenUrl) => (await fetch(givenUrl)).text()
 
@@ -18,14 +16,21 @@ const downloadWithProgressBar = async (fileUrl, destination) => {
     `  downloading ${destination} [:bar] :rate/bps :percent :etas`, {
       incomplete: ' ',
       width: 20,
-      total: len
+      total: len,
+      head: '>',
+      renderThrottle: 50
     })
 
-  res.body.on('data', (chunk) => {
-    bar.tick(chunk.length)
+  return new Promise((resolve) => {
+    res.body
+      .on('data', (chunk) => {
+        bar.tick(chunk.length)
+      })
+      .on('end', () => {
+        resolve()
+      })
+      .pipe(writeStream)
   })
-
-  res.body.pipe(writeStream)
 }
 
 export default { remoteDocument, downloadHtml, downloadWithProgressBar }

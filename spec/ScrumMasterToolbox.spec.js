@@ -11,12 +11,15 @@ describe('ScrumMasterToolbox', () => {
 
   const mockHtmlContent = (path) => {
     jest.spyOn(helpers, 'downloadHtml')
-      .mockImplementation(() => readFile(path))
+      .mockImplementation(() => {
+        console.log('entering here')
+        readFile(path)
+      })
   }
 
   describe('titles', () => {
     it('returns the titles of the first page as a list', async () => {
-      mockHtmlContent('./specs/scrum_master_toolbox_home.html')
+      mockHtmlContent('./spec/scrum_master_toolbox_home.html')
       expect(await ScrumMasterToolbox.titles()).toEqual([
         '20 TOP Agile Blogs for Scrum Masters that you will not (easily) find on google searches (2017 edition)',
         'Kimberley Miller on how to explore trust as a symptom of systemic trouble',
@@ -35,7 +38,7 @@ describe('ScrumMasterToolbox', () => {
 
   describe('urls', () => {
     it('returns the pathnames of the first page as a list', async () => {
-      mockHtmlContent('./specs/scrum_master_toolbox_home.html')
+      mockHtmlContent('./spec/scrum_master_toolbox_home.html')
       expect(await ScrumMasterToolbox.urls()).toEqual([
         'http://scrum-master-toolbox.org/2017/12/blog/20-top-agile-blogs-for-scrum-masters-that-you-will-not-easily-find-on-google-searches-2017-edition/',
         'http://scrum-master-toolbox.org/2018/01/podcast/kimberley-miller-on-how-to-explore-trust-as-a-symptom-of-systemic-trouble/',

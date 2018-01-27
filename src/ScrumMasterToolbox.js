@@ -28,7 +28,9 @@ export default class ScrumMasterToolbox {
       name: 'episodes',
       choices
     }])
-    console.log(results.episodes)
+    for (let episode of results.episodes) {
+      await episode.download()
+    }
   }
 
   static async episodes () {

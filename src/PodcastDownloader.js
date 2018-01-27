@@ -5,9 +5,7 @@ import path from 'path'
 
 export default class PodcastDownloader {
   static async getPageAudioSrc (givenUrl) {
-    const sourceElement = new JSDOM(await helpers.downloadHtml(givenUrl))
-      .window
-      .document
+    const sourceElement = JSDOM.fragment(await helpers.downloadHtml(givenUrl))
       .querySelector('audio source')
     return sourceElement && sourceElement.src
   }
@@ -19,6 +17,7 @@ export default class PodcastDownloader {
   static async downloadAudioOnPage (givenUrl) {
     const src = await this.getPageAudioSrc(givenUrl)
 
-    await helpers.downloadWithProgressBar(src, this.urlFileName(src))
+    const result = await helpers.downloadWithProgressBar(src, this.urlFileName(src))
+    console.log(result)
   }
 }

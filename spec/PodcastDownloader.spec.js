@@ -19,12 +19,12 @@ describe('PodcastDownloader', () => {
     })
 
     it('returns null if no audio tags are found', async () => {
-      mockHtmlContent('./specs/example_without_audio.html')
+      mockHtmlContent('./spec/example_without_audio.html')
       expect(await PodcastDownloader.getPageAudioSrc('dummy')).toBeNull()
     })
 
     it('returns the audio tag src if found', async () => {
-      mockHtmlContent('./specs/example_with_audio.html')
+      mockHtmlContent('./spec/example_with_audio.html')
       expect(await PodcastDownloader.getPageAudioSrc('dummy')).toBe(audioSource)
     })
   })
