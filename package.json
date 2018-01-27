@@ -1,7 +1,6 @@
 {
-  "name": "podcast_downloader",
+  "name": "castigador",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "babel": {
     "presets": [
@@ -9,8 +8,8 @@
     ]
   },
   "scripts": {
-    "test": "jest --config jest.config.js --coverage --notify --onlyChanged",
-    "watch": "yarn test --watch",
+    "test": "jest --config jest.config.js --coverage --notify",
+    "watch": "yarn test --watch --onlyChanged",
     "compile": "babel -d lib/ src/",
     "prepublish": "yarn compile",
     "start": "yarn compile && node ./lib/castigador.js"
