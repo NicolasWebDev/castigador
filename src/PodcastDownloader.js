@@ -1,11 +1,10 @@
 import helpers from './helpers'
-import { JSDOM } from 'jsdom'
 import url from 'url'
 import path from 'path'
 
 export default class PodcastDownloader {
   static async getPageAudioSrc (givenUrl) {
-    const sourceElement = JSDOM.fragment(await helpers.downloadHtml(givenUrl))
+    const sourceElement = (await helpers.remoteDocument(givenUrl))
       .querySelector('audio source')
     return sourceElement && sourceElement.src
   }

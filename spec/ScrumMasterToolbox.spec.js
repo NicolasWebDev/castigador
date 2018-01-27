@@ -11,10 +11,7 @@ describe('ScrumMasterToolbox', () => {
 
   const mockHtmlContent = (path) => {
     jest.spyOn(helpers, 'downloadHtml')
-      .mockImplementation(() => {
-        console.log('entering here')
-        readFile(path)
-      })
+      .mockImplementation(() => readFile(path))
   }
 
   describe('titles', () => {
