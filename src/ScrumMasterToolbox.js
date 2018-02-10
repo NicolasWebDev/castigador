@@ -18,8 +18,7 @@ export default class ScrumMasterToolbox {
   }
 
   static async downloadEpisodes () {
-    const episodes = await this.promptEpisodes()
-    for (let episode of episodes) {
+    for (let episode of (await this.promptEpisodes())) {
       await episode.download()
     }
   }

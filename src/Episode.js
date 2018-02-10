@@ -7,6 +7,11 @@ export default class Episode {
   }
 
   async download () {
-    await helpers.downloadAudioOnPage(this.url)
+    try {
+      await helpers.downloadAudioOnPage(this.url)
+    } catch (error) {
+      console.log(`Error downloading "${this.title}": ${error.name}` +
+        ` ${error.message}`)
+    }
   }
 }
