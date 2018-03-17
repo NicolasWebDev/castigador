@@ -1,5 +1,6 @@
 import ScrumMasterToolbox from '../src/ScrumMasterToolbox'
 import helpers from '../src/helpers'
+import inquirer from 'inquirer'
 import util from 'util'
 import fs from 'fs'
 const readFile = util.promisify(fs.readFile)
@@ -49,6 +50,99 @@ describe('ScrumMasterToolbox', () => {
         'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-on-how-a-ceo-became-a-better-leader-with-the-help-of-a-scrum-master/',
         'http://scrum-master-toolbox.org/2018/01/podcast/christiaan-verwijs-on-facilitation-as-the-critical-art-for-scrum-masters/'
       ])
+    })
+  })
+
+  describe('urlOfPage', () => {
+    it('returns the url of the page 2', () => {
+      expect(ScrumMasterToolbox.urlOfPage(2))
+        .toBe('http://scrum-master-toolbox.org/page/2')
+    })
+
+    it('returns the url of the page 3', () => {
+      expect(ScrumMasterToolbox.urlOfPage(3))
+        .toBe('http://scrum-master-toolbox.org/page/3')
+    })
+  })
+
+  describe('downloadEpisodes', () => {
+    it('calls promptEpisodes once', () => {
+      jest.spyOn(ScrumMasterToolbox, 'promptEpisodes').mockReturnValue([])
+
+      ScrumMasterToolbox.downloadEpisodes()
+
+      expect(ScrumMasterToolbox.promptEpisodes).toHaveBeenCalledTimes(1)
+    })
+
+    it('calls episode.download once for each episode', async () => {
+      const download = jest.fn()
+      jest.spyOn(ScrumMasterToolbox, 'promptEpisodes')
+        .mockReturnValue(Array(5).fill({ download }))
+
+      await ScrumMasterToolbox.downloadEpisodes()
+
+      expect(download).toHaveBeenCalledTimes(5)
+    })
+  })
+
+  describe('promptEpisodesChoices', () => {
+    it('returns the choices formatted for inquirer', async () => {
+      jest.spyOn(ScrumMasterToolbox, 'episodes')
+        .mockReturnValue([{ title: 'dog' }, { title: 'cat' }])
+
+      expect(await ScrumMasterToolbox.promptEpisodesChoices()).toEqual([
+        {
+          name: 'dog',
+          value: { title: 'dog' }
+        },
+        {
+          name: 'cat',
+          value: { title: 'cat' }
+        }
+      ])
+    })
+
+    it('returns the choices formatted for inquirer (case 2)', async () => {
+      jest.spyOn(ScrumMasterToolbox, 'episodes')
+        .mockReturnValue([{ title: 'bird' }, { title: 'turtle' }])
+
+      expect(await ScrumMasterToolbox.promptEpisodesChoices()).toEqual([
+        {
+          name: 'bird',
+          value: { title: 'bird' }
+        },
+        {
+          name: 'turtle',
+          value: { title: 'turtle' }
+        }
+      ])
+    })
+  })
+
+  describe('promptEpisodes', () => {
+    beforeEach(() => {
+      jest.spyOn(ScrumMasterToolbox, 'promptEpisodesChoices').mockReturnValue()
+      jest.spyOn(inquirer, 'prompt').mockReturnValue({})
+    })
+
+    it('calls promptEpisodesChoices once', async () => {
+      await ScrumMasterToolbox.promptEpisodes('dummy')
+
+      expect(ScrumMasterToolbox.promptEpisodesChoices).toHaveBeenCalledTimes(1)
+    })
+
+    it('calls inquirer.prompt once', async () => {
+      await ScrumMasterToolbox.promptEpisodes('dummy')
+
+      expect(inquirer.prompt).toHaveBeenCalledTimes(1)
+    })
+
+    it('returns the episodes property of inquirer.prompt', async () => {
+      inquirer.prompt.mockReturnValue({ episodes: 'expected' })
+
+      const result = await ScrumMasterToolbox.promptEpisodes('dummy')
+
+      expect(result).toBe('expected')
     })
   })
 })
