@@ -31,10 +31,9 @@ export default class Helpers {
   }
 
   static async downloadWithProgressBar (fileUrl, destination) {
-    const res = await fetch(fileUrl)
-    const writeStream = fs.createWriteStream(destination)
+    const { headers, body } = await fetch(fileUrl)
 
-    const len = parseInt(res.headers.get('content-length'), 10)
+    const len = parseInt(headers.get('content-length'), 10)
     const bar = new ProgressBar(
       `  downloading ${destination} [:bar] :rate/bps :percent :etas`, {
         incomplete: ' ',
@@ -44,10 +43,15 @@ export default class Helpers {
         renderThrottle: 50
       })
 
+    return this.writeResponseBody(body, bar, destination)
+  }
+
+  static writeResponseBody (body, progressBar, destination) {
+    const writeStream = fs.createWriteStream(destination)
     return new Promise((resolve) => {
-      res.body
+      body
         .on('data', (chunk) => {
-          bar.tick(chunk.length)
+          progressBar.tick(chunk.length)
         })
         .on('end', () => {
           resolve()
